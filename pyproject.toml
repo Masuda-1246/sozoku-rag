@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "rag"
+version = "0.1.0"
+description = ""
+authors = ["Masuda-1246 <yaojiezengtian38@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "^2.2.2"
+openai = "^1.42.0"
+tiktoken = "^0.7.0"
+langchain-openai = "^0.1.22"
+langchain-community = "^0.2.12"
+beautifulsoup4 = "^4.12.3"
+
+[tool.poetry.group.dev.dependencies]
+langchain = "^0.2.14"
+langchain-community = "^0.2.12"
+sentence-transformers = "^3.0.1"
+faiss-cpu = "^1.8.0.post1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
