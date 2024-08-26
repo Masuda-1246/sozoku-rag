@@ -47,16 +47,24 @@ def generate_response_with_llm(query, similar_docs, model):
 
     return response
 
-def chat_with_rag_and_llm(query, faiss_index, model):
+def chat_with_rag_and_llm(query, faiss_index, model, threshold=0.2): # [wip] 閾値のデフォルト値を0.2に設定
     """FAISSインデックスとLLMを使用して応答を生成する"""
-    # FAISSインデックスから関連情報を取得
-    similar_docs = faiss_index.similarity_search(query)
+    # FAISSインデックスから関連情報を取得（スコア付き）
+    results = faiss_index.similarity_search_with_score(query)
+
+    # スコアに基づいてフィルタリング
+    filtered_docs = [
+        doc for doc, score in results if score <= threshold
+    ]
+
+    if not filtered_docs:
+        return "関連する情報が見つかりませんでした。"
 
     # LLMを使って応答を生成
-    response = generate_response_with_llm(query, similar_docs, model)
+    response = generate_response_with_llm(query, filtered_docs, model)
     
     # 出典元のURLを付け加える
-    unique_urls = set(doc.metadata['url'] for doc in similar_docs)
+    unique_urls = set(doc.metadata['url'] for doc in filtered_docs)
     urls = "\n".join(unique_urls)
     response += f"\n\n出典元URL:\n{urls}"
 
