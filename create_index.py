@@ -24,8 +24,6 @@ for text, url in zip(texts, urls):
     for chunk in chunks:
         documents.append(Document(page_content=chunk, metadata={"url": url}))
 
-
-
 # OpenAIの埋め込みモデルを使用
 embeddings = OpenAIEmbeddings()  # OpenAIのAPIキーが必要です
 
