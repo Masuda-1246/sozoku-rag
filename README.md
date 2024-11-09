@@ -103,9 +103,16 @@ direnv allow
 
 4. RAGチャットシステムを起動する
    ```bash
-   poetry run python main.py
+   poetry run uvicorn main:app --port 8080 --reload
    ```
 
+5. ブラウザで `http://localhost:8080/docs` にアクセスして、OpenAPI ドキュメントを確認します。
+
+6. BoltでAPIを使いたい時は、ngrokを使って外部公開する
+   ```bash
+   ngrok http 8080
+   ```
+   このコマンドを実行すると、ngrok が提供する URL が表示されます。この URL を使って、外部からアクセスできるようになります。
 ## ディレクトリ構成
 
 ```
